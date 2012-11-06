@@ -21,6 +21,8 @@ circuit is open.
 
 ## Testing
 
+[![Build Status](https://secure.travis-ci.org/soundcloud/simple_circuit_breaker.png)][1]
+
 Run the tests with
 
 ```bash
@@ -36,3 +38,4 @@ Julius Volz (julius@soundcloud.com), Tobias Schmidt (ts@soundcloud.com).
 Pull requests welcome!
 
 [0]: http://en.wikipedia.org/wiki/Circuit_breaker_design_pattern
+[1]: http://travis-ci.org/soundcloud/simple_circuit_breaker
