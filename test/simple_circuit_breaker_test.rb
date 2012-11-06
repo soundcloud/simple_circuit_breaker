@@ -42,7 +42,7 @@ describe SimpleCircuitBreaker do
 
       Proc.new do
         @breaker.handle do
-          raiseRuntimeError
+          raise RuntimeError
         end
       end.must_raise SimpleCircuitBreaker::Error
     end
