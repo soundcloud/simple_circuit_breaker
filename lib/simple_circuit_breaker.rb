@@ -1,8 +1,10 @@
 class SimpleCircuitBreaker
-  attr_reader :failure_threshold, :retry_timeout
+  VERSION = '0.1.0'
 
   class Error < StandardError
   end
+
+  attr_reader :failure_threshold, :retry_timeout
 
   def initialize(failure_threshold=3, retry_timeout=10)
     @failure_threshold = failure_threshold
