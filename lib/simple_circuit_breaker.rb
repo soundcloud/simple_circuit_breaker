@@ -1,7 +1,7 @@
 class SimpleCircuitBreaker
   VERSION = '0.1.0'
 
-  class Error < StandardError
+  class CircuitOpenError < StandardError
   end
 
   attr_reader :failure_threshold, :retry_timeout
@@ -14,7 +14,7 @@ class SimpleCircuitBreaker
 
   def handle(*exceptions, &block)
     if tripped?
-      raise Error, 'Circuit is open'
+      raise CircuitOpenError, 'Circuit is open'
     else
       execute(exceptions, &block)
     end

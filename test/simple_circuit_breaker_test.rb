@@ -44,7 +44,7 @@ describe SimpleCircuitBreaker do
         @breaker.handle do
           raise RuntimeError
         end
-      end.must_raise SimpleCircuitBreaker::Error
+      end.must_raise SimpleCircuitBreaker::CircuitOpenError
     end
 
     it 'opens after 3 consecutive failures for handled exception' do
@@ -59,7 +59,7 @@ describe SimpleCircuitBreaker do
         @breaker.handle(RuntimeError) do
           raise RuntimeError
         end
-      end.must_raise SimpleCircuitBreaker::Error
+      end.must_raise SimpleCircuitBreaker::CircuitOpenError
     end
 
     it 'doesn\'t open after 3 consecutive failures for non-handled exception' do
@@ -82,7 +82,7 @@ describe SimpleCircuitBreaker do
         @breaker.handle { raise RuntimeError } rescue nil
       end
 
-      lambda { @breaker.handle {} }.must_raise SimpleCircuitBreaker::Error
+      lambda { @breaker.handle {} }.must_raise SimpleCircuitBreaker::CircuitOpenError
     end
 
     it 'closes after timeout and subsequent success' do
@@ -100,7 +100,7 @@ describe SimpleCircuitBreaker do
         end
       end.must_raise RuntimeError
 
-      lambda { @breaker.handle {} }.must_raise SimpleCircuitBreaker::Error
+      lambda { @breaker.handle {} }.must_raise SimpleCircuitBreaker::CircuitOpenError
     end
   end
 end
