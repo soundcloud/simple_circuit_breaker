@@ -32,7 +32,7 @@ describe SimpleCircuitBreaker do
       foo.must_equal 42
     end
 
-    it 'opens after 3 consecutive failures' do
+    it 'opens after 3 consecutive failures with no explicit handled exceptions' do
       3.times do
         begin
           @breaker.handle { raise RuntimeError }
@@ -45,6 +45,33 @@ describe SimpleCircuitBreaker do
           raise RuntimeError
         end
       end.must_raise SimpleCircuitBreaker::Error
+    end
+
+    it 'opens after 3 consecutive failures for handled exception' do
+      3.times do
+        begin
+          @breaker.handle(RuntimeError) { raise RuntimeError }
+        rescue RuntimeError
+        end
+      end
+
+      Proc.new do
+        @breaker.handle(RuntimeError) do
+          raise RuntimeError
+        end
+      end.must_raise SimpleCircuitBreaker::Error
+    end
+
+    it 'doesn\'t open after 3 consecutive failures for non-handled exception' do
+      class FooError < Exception
+      end
+
+      4.times do
+        begin
+          @breaker.handle(FooError) { raise RuntimeError }
+        rescue RuntimeError
+        end
+      end
     end
   end
 

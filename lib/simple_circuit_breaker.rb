@@ -12,21 +12,23 @@ class SimpleCircuitBreaker
     reset!
   end
 
-  def handle(&block)
+  def handle(*exceptions, &block)
     if tripped?
       raise Error, 'Circuit is open'
     else
-      execute(&block)
+      execute(exceptions, &block)
     end
   end
 
 protected
 
-  def execute(&block)
+  def execute(exceptions, &block)
     begin
       yield.tap { success! }
-    rescue Exception
-      fail!
+    rescue Exception => exception
+      if exceptions.empty? || exceptions.include?(exception.class)
+        fail!
+      end
       raise
     end
   end
