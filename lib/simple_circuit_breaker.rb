@@ -24,18 +24,12 @@ protected
 
   def execute(exceptions, &block)
     begin
-      yield.tap { success! }
+      yield.tap { reset! }
     rescue Exception => exception
       if exceptions.empty? || exceptions.include?(exception.class)
         fail!
       end
       raise
-    end
-  end
-
-  def success!
-    if @state == :half_open
-      reset!
     end
   end
 
@@ -53,16 +47,7 @@ protected
   end
 
   def tripped?
-    @state != :closed && !try_to_close
-  end
-
-  def try_to_close
-    if timeout_exceeded?
-      @state = :half_open
-      true
-    else
-      false
-    end
+    @state == :open && !timeout_exceeded?
   end
 
   def timeout_exceeded?
