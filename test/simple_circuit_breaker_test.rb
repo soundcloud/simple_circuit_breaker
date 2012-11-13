@@ -73,6 +73,16 @@ describe SimpleCircuitBreaker do
         end
       end
     end
+
+    it 'doesn\'t open after 3 non-consecutive failures for handled exception' do
+      4.times do
+        begin
+          @breaker.handle(RuntimeError) {}
+          @breaker.handle(RuntimeError) { raise RuntimeError }
+        rescue RuntimeError
+        end
+      end
+    end
   end
 
   describe 'opened circuit' do
