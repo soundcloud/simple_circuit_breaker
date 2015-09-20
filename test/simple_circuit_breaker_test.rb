@@ -32,6 +32,15 @@ describe SimpleCircuitBreaker do
       foo.must_equal 42
     end
 
+    it 'works with BasicObject return values' do
+      object = BasicObject.new
+      foo = @breaker.handle do
+        object
+      end
+
+      assert foo.equal?(object)
+    end
+
     it 'opens after 3 consecutive failures with no explicit handled exceptions' do
       3.times do
         begin

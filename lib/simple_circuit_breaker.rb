@@ -23,14 +23,14 @@ class SimpleCircuitBreaker
 protected
 
   def execute(exceptions, &block)
-    begin
-      yield.tap { reset! }
-    rescue Exception => exception
-      if exceptions.empty? || exceptions.include?(exception.class)
-        fail!
-      end
-      raise
+    result = yield
+    reset!
+    result
+  rescue Exception => exception
+    if exceptions.empty? || exceptions.include?(exception.class)
+      fail!
     end
+    raise
   end
 
   def fail!
