@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.authors      = ['Julius Volz', 'Tobias Schmidt']
   s.email        = 'julius@soundcloud.com ts@soundcloud.com'
   s.homepage     = 'http://github.com/soundcloud/simple_circuit_breaker'
+  s.licenses     = ['MIT']
 
   s.files        = `git ls-files`.split("\n")
   s.test_files   = `git ls-files -- test/*`.split("\n")
