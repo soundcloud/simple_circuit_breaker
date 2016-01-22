@@ -26,8 +26,8 @@ protected
     result = yield
     reset!
     result
-  rescue Exception => exception
-    if exceptions.empty? || exceptions.include?(exception.class)
+  rescue Exception => e
+    if exceptions.empty? || exceptions.any? { |exception| e.class <= exception }
       fail!
     end
     raise
