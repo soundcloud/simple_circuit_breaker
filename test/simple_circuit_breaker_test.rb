@@ -71,6 +71,23 @@ describe SimpleCircuitBreaker do
       end.must_raise SimpleCircuitBreaker::CircuitOpenError
     end
 
+    it 'opens after 3 consecutive failures for subclasses of a handled exception' do
+      subclass = Class.new(StandardError)
+
+      3.times do
+        begin
+          @breaker.handle(StandardError) { raise subclass }
+        rescue subclass
+        end
+      end
+
+      Proc.new do
+        @breaker.handle(StandardError) do
+          raise subclass
+        end
+      end.must_raise SimpleCircuitBreaker::CircuitOpenError
+    end
+
     it 'doesn\'t open after 3 consecutive failures for non-handled exception' do
       class FooError < Exception
       end
