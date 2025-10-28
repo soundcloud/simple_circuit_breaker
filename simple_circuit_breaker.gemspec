@@ -7,8 +7,6 @@ Gem::Specification.new do |s|
   s.summary      = 'Ruby Circuit Breaker implementation'
   s.description  = 'Simple Ruby implementation of the Circuit Breaker design pattern'
   s.authors      = ['Julius Volz', 'Tobias Schmidt']
-  s.email        = 'julius@soundcloud.com ts@soundcloud.com'
-  s.homepage     = 'http://github.com/soundcloud/simple_circuit_breaker'
   s.licenses     = ['MIT']
 
   s.files        = `git ls-files`.split("\n")

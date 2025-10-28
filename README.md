@@ -39,7 +39,6 @@ gem install simple_circuit_breaker
 
 ## Testing
 
-[![Build Status](https://secure.travis-ci.org/soundcloud/simple_circuit_breaker.png)][1]
 
 Run the tests with
 
@@ -49,7 +48,6 @@ rake
 
 ## Authors
 
-Julius Volz (julius@soundcloud.com), Tobias Schmidt (ts@soundcloud.com).
 
 ## Alternatives
 
@@ -61,6 +59,5 @@ Julius Volz (julius@soundcloud.com), Tobias Schmidt (ts@soundcloud.com).
 Pull requests welcome!
 
 [0]: http://en.wikipedia.org/wiki/Circuit_breaker_design_pattern
-[1]: http://travis-ci.org/soundcloud/simple_circuit_breaker
 [2]: https://github.com/wsargent/circuit_breaker
 [3]: https://github.com/alg/circuit_b
